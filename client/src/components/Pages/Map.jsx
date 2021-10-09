@@ -193,6 +193,7 @@ const Map = ({
         onClick={(event) => setUserPins(() => [
           {
             name: 'Dropped Pin',
+            icon,
             location: {
               lat: event.latLng.lat(),
               lng: event.latLng.lng(),
@@ -210,7 +211,7 @@ const Map = ({
             key={getKey()}
             position={item.location}
             icon={{
-              url: getIcon(item.activity),
+              url: item.icon,
               scaledSize: new window.google.maps.Size(30, 30),
               origin: new window.google.maps.Point(0, 0),
               anchor: new window.google.maps.Point(15, 35),
@@ -232,7 +233,7 @@ const Map = ({
               key={getKey()}
               position={pin.location}
               icon={{
-                url: getIcon(pin.activity),
+                url: pin.icon,
                 scaledSize: new window.google.maps.Size(30, 30),
                 origin: new window.google.maps.Point(0, 0),
                 anchor: new window.google.maps.Point(15, 35),
