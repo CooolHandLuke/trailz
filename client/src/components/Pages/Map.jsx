@@ -44,6 +44,7 @@ const Map = ({
   addEvent,
   removeEvent,
   events,
+  icon,
   user,
   toggleSearch,
   updateEvents,
@@ -58,30 +59,30 @@ const Map = ({
    * not too zoomed in. if no points are in results, the
    * location of the user is set to center with a default of 12.
    */
-  // const setBounds = () => {
-  //   if (window.google && mapRef.current) {
-  //     if (results.length > 1) {
-  //       const bounds = results.reduce(
-  //         (boundsObj, { location: { lat, lng } }) =>
-  //           boundsObj.extend({ lat, lng }),
-  //         new window.google.maps.LatLngBounds()
-  //       );
-  //       mapRef.current.fitBounds(bounds);
-  //     } else if (results.length === 1) {
-  //       const [
-  //         {
-  //           location: { lat, lng },
-  //         },
-  //       ] = results;
-  //       setZoom(14);
-  //       setCenter({ lat, lng });
-  //     } else {
-  //       const { lat, lng } = position;
-  //       setZoom(12);
-  //       setCenter({ lat, lng });
-  //     }
-  //   }
-  // };
+  const setBounds = () => {
+    if (window.google && mapRef.current) {
+      if (results.length > 1) {
+        const bounds = results.reduce(
+          (boundsObj, { location: { lat, lng } }) =>
+            boundsObj.extend({ lat, lng }),
+          new window.google.maps.LatLngBounds()
+        );
+        mapRef.current.fitBounds(bounds);
+      } else if (results.length === 1) {
+        const [
+          {
+            location: { lat, lng },
+          },
+        ] = results;
+        setZoom(14);
+        setCenter({ lat, lng });
+      } else {
+        const { lat, lng } = position;
+        setZoom(12);
+        setCenter({ lat, lng });
+      }
+    }
+  };
   // initial center set based on users location
   const [center, setCenter] = useState({
     lat: position.lat,
@@ -209,7 +210,7 @@ const Map = ({
             key={getKey()}
             position={item.location}
             icon={{
-              url: item.icon,
+              url: getIcon(item.activity),
               scaledSize: new window.google.maps.Size(30, 30),
               origin: new window.google.maps.Point(0, 0),
               anchor: new window.google.maps.Point(15, 35),

@@ -80,6 +80,7 @@ const addNewEvent = wrapAsync(async (req, res) => {
   const {
     eventName,
     locationName,
+    icon,
     lat,
     lng,
     time,
@@ -91,6 +92,7 @@ const addNewEvent = wrapAsync(async (req, res) => {
   const event = await new Event({
     eventName,
     locationName,
+    icon,
     location: { lat, lng },
     time,
     description,

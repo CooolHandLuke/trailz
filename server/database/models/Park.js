@@ -12,6 +12,9 @@ const parkSchema = mongoose.Schema({
   address: {
     type: String,
   },
+  icon: {
+    type: String,
+  },
   location: {
     lat: {
       type: Number,
@@ -21,9 +24,6 @@ const parkSchema = mongoose.Schema({
       type: Number,
       required: true,
     },
-  },
-  icon: {
-    type: String,
   },
   imageUrl: {
     type: String,

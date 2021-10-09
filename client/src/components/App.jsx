@@ -85,6 +85,7 @@ const App = () => {
     lat,
     lng,
     time,
+    icon,
     activity,
     description,
     isPublic,
@@ -101,6 +102,7 @@ const App = () => {
       lat,
       lng,
       time,
+      icon,
       activity,
       description,
       isPublic,
@@ -143,6 +145,7 @@ const App = () => {
       parkId,
       name,
       address,
+      icon,
       location: { lat, lng },
     } = park;
     axios
@@ -150,6 +153,7 @@ const App = () => {
         parkId,
         name,
         address,
+        icon,
         lat,
         lng,
       })

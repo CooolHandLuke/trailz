@@ -29,7 +29,7 @@ const getFavoriteParks = wrapAsync(async (req, res) => {
  */
 const addFavoritePark = wrapAsync(async (req, res) => {
   const { userId } = req.params;
-  const { parkId, name, address, lat, lng } = req.body;
+  const { parkId, name, address, icon, lat, lng } = req.body;
   const user = await User.findOne({ _id: userId });
   // const park = await Park.findById(parkId);
   // console.log(park);
@@ -37,6 +37,7 @@ const addFavoritePark = wrapAsync(async (req, res) => {
     parkId,
     name,
     address,
+    icon,
     location: { lat, lng },
   }).save();
   user.favoriteParks.push(newPark);
@@ -80,11 +81,12 @@ const defaultSearch = wrapAsync(async (req, res) => {
       parkId: result.place_id,
       name: result.name,
       address: result.vicinity,
+      icon: result.icon,
       location: {
         lat: result.geometry.location.lat,
         lng: result.geometry.location.lng,
       },
-      icon: result.icon,
+      
       // imageUrl: result.photos[0].photo_reference || null,
       // anchorTag: result.photos[0].html_attributions || null,
     })),
@@ -106,16 +108,16 @@ const searchParks = wrapAsync(async (req, res) => {
   const { data: results } = await axios.get(
     `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=160934&key=${PLACES_API_KEY}&keyword=${keyword}`
   );
-  console.log(results)
+  console.log("RESULTS FROM SEARCH", results)
   const mappedResults = results.results.map((result) => ({
     parkId: result.place_id,
     name: result.name,
     address: result.vicinity,
+    icon: result.icon,
     location: {
       lat: result.geometry.location.lat,
       lng: result.geometry.location.lng,
     },
-    icon: result.icon,
     // imageUrl: result.photos[0].photo_reference || null,
     // anchorTag: result.photos[0].html_attributions || null,
   }));
